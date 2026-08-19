@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    const scripts = {
-        'web.whatsapp.com': 'whatsapp.js',
-        'aroapp.in': 'aroapp.js',
-    };
+window.ADHIKARY_ARTS_SCRIPTS = {
+    'web.whatsapp.com': 'whatsapp.js',
+    'aroapp.in': 'aroapp.js'
+};
 
     const host = location.hostname;
     const file = scripts[host];
