@@ -1,50 +1,24 @@
 (function () {
     'use strict';
 
-    const host = location.hostname;
-
     const scripts = {
         'web.whatsapp.com': 'whatsapp.js',
         'aroapp.in': 'aroapp.js',
-
-        // Future websites
-        // 'example.com': 'example.js',
     };
 
+    const host = location.hostname;
     const file = scripts[host];
 
     if (!file) {
+        console.log('[AdhikaryArts] No script configured for:', host);
         return;
     }
 
-    const url =
-        'https://raw.githubusercontent.com/bapandev/adhikaryarts/main/'
-        + file
-        + '?t='
-        + Date.now();
+    console.log('[AdhikaryArts] Requested file:', file);
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-
-            return response.text();
-        })
-        .then(code => {
-            new Function(code)();
-
-            console.log(
-                '[AdhikaryArts] Loaded:',
-                file
-            );
-        })
-        .catch(error => {
-            console.error(
-                '[AdhikaryArts] Failed:',
-                file,
-                error
-            );
-        });
-
+    if (typeof window.AdhikaryArtsLoadScript === 'function') {
+        window.AdhikaryArtsLoadScript(file);
+    } else {
+        console.error('[AdhikaryArts] Loader function not found.');
+    }
 })();
